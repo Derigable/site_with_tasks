@@ -21,7 +21,7 @@ class Model_Task extends Model
 		$username = htmlentities(trim($username), ENT_QUOTES);
 		$email = htmlentities(trim($email), ENT_QUOTES);
 		$task = htmlentities(trim($task), ENT_QUOTES);
-		$status = 0;
+		$status = "В процессе";
 		
 		$mysqli = new mysqli('mysql.zzz.com.ua', 'derigable', 'H7p1r8F9BZ1', 'derigable');
 
@@ -32,7 +32,7 @@ class Model_Task extends Model
 		}
 
 		$stmt = $mysqli->prepare("INSERT INTO tasks (name, email, task_description, status) VALUES (?, ?, ?, ?)");
-		$stmt->bind_param('sssi', $username, $email, $task, $status);
+		$stmt->bind_param('ssss', $username, $email, $task, $status);
 
 		/* выполнение подготовленного запроса */
 		$stmt->execute();

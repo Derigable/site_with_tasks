@@ -12,4 +12,8 @@ class Controller_Main extends Controller
 		$result = $this->model->get_all_tasks();
 		$this->view->generate('main_view.php', 'template_view.php', $result);
 	}
+
+	function action_status_change() {
+		$this->model->status_change($_POST['task_id']);
+	}
 }

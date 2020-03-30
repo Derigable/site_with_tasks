@@ -31,6 +31,15 @@ $(document).ready(function () {
         });
     });
 
+    // Изменяем статус задачи по клику на чекбокс
+    $(":checkbox").click(function() {
+        $.ajax({
+            url:'main/status_change',
+            method:"POST",
+            data: ({task_id: this.id})
+        });
+    });
+
 });
 
 

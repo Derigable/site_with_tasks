@@ -14,7 +14,7 @@
 
     foreach($data as $row)
 	{
-		echo '<tr><td>'.$row['name'].'</td><td>'.$row['email'].'</td><td>'.$row['task_description']."</td><td id=".$row['id'].">".$row['status'].'<input type="checkbox" class="dt-checkboxes ml-4 d-none" /></td></tr>';
+		echo '<tr><td>'.$row['name'].'</td><td>'.$row['email'].'</td><td>'.$row['task_description']."</td><td id=".$row['id'].">".$row['status'].'<input type="checkbox" class="dt-checkboxes ml-4 d-none" id='.$row['id'].' /></td></tr>';
 	}
 ?>
 </table>
