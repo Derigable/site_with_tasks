@@ -1,10 +1,6 @@
 <?php
 
-class Model_Login extends Model
-{
-	
-	public function get_data()	{	
-	}
+class Model_Login extends Model {
 
 	public function login($username, $password) {
 

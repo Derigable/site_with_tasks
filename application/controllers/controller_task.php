@@ -1,7 +1,6 @@
 <?php
 
-class Controller_Task extends Controller
-{
+class Controller_Task extends Controller {
 
 	function __construct(){
 		$this->model = new Model_Task();
@@ -23,6 +22,15 @@ class Controller_Task extends Controller
 
 	function action_get_all_tasks() {
 		$result = $this->model->get_all_tasks();
+	}
+
+	function action_edit_task() {
+		$id = $_POST['id'];
+		$task = $_POST['task'];
+		$task_changed = $_POST['task_changed'];
+
+		$result = $this->model->edit_task($id, $task, $task_changed);
+		echo $result;
 	}
 	
 }

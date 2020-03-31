@@ -1,12 +1,7 @@
 <?php
 
-class Model_Task extends Model
-{
+class Model_Task extends Model {
 	
-	public function get_data()
-	{	
-	}
-
 	public function send($username, $email, $task) {
 
 		if (empty($username) || empty($email) || empty($task)) {
@@ -22,6 +17,7 @@ class Model_Task extends Model
 		$email = htmlentities(trim($email), ENT_QUOTES);
 		$task = htmlentities(trim($task), ENT_QUOTES);
 		$status = "В процессе";
+		$task_changed = 0;
 		
 		$mysqli = new mysqli('mysql.zzz.com.ua', 'derigable', 'H7p1r8F9BZ1', 'derigable');
 
@@ -31,8 +27,8 @@ class Model_Task extends Model
 			exit();
 		}
 
-		$stmt = $mysqli->prepare("INSERT INTO tasks (name, email, task_description, status) VALUES (?, ?, ?, ?)");
-		$stmt->bind_param('ssss', $username, $email, $task, $status);
+		$stmt = $mysqli->prepare("INSERT INTO tasks (name, email, task_description, status, task_changed) VALUES (?, ?, ?, ?, ?)");
+		$stmt->bind_param('ssssi', $username, $email, $task, $status, $task_changed);
 
 		/* выполнение подготовленного запроса */
 		$stmt->execute();
@@ -44,5 +40,36 @@ class Model_Task extends Model
 		$mysqli->close();
 
 		return "Задача успешно добавлена!";
+	}
+
+	public function edit_task($id, $task, $task_changed) {
+
+		$task = htmlentities(trim($task), ENT_QUOTES);
+
+		if (empty($task)) {
+			return "Вы заполнили не все поля";
+		}
+
+		$mysqli = new mysqli('mysql.zzz.com.ua', 'derigable', 'H7p1r8F9BZ1', 'derigable');
+
+		/* проверка подключения */
+		if (mysqli_connect_errno()) {
+			printf("Не удалось подключиться: %s\n", mysqli_connect_error());
+			exit();
+		}
+
+		$stmt = $mysqli->prepare("UPDATE `tasks` SET `task_description` = ? , `task_changed` = ? WHERE `tasks`.`id` = ?");
+		$stmt->bind_param('sii', $task, $task_changed, $id);
+
+		/* выполнение подготовленного запроса */
+		$stmt->execute();
+
+		/* закрываем запрос */
+		$stmt->close();
+
+		/* закрываем подключение */
+		$mysqli->close();
+
+		return "Задача успешно обновлена!";
 	}
 }

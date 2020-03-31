@@ -1,12 +1,7 @@
 <?php
 
-class Model_Main extends Model
-{
+class Model_Main extends Model {
 	
-	public function get_data()
-	{	
-	}
-
 	public function get_all_tasks() {
 		$link = mysqli_connect('mysql.zzz.com.ua', 'derigable', 'H7p1r8F9BZ1', 'derigable');
 		if (!$link) {

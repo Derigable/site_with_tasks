@@ -1,3 +1,4 @@
+
 <?php if (!isset($_SESSION["username"])) {?>
 <h1 class="text-center">Авторизация</h1>
 
@@ -18,6 +19,7 @@
 </form>
 <?php } ?>
 
-<div class="text-center <?php if ($data === 'Неправильно указаны реквизиты доступа') {?> text-danger <?php } else {?> text-success <?php } ?>">
+<div class="text-center text-danger mt-4 h5">
     <?php echo($data); ?>   
 </div>  
+

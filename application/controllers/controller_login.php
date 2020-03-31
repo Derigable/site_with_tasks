@@ -1,7 +1,7 @@
 <?php
 
-class Controller_Login extends Controller
-{
+class Controller_Login extends Controller {
+	
 	function __construct(){
 		$this->model = new Model_Login();
 		$this->view = new View();
@@ -16,8 +16,11 @@ class Controller_Login extends Controller
 		$password = $_POST['password'];
 
 		$result = $this->model->login($username, $password);
-		$this->view->generate('login_view.php', 'template_view.php', $result);
-		
+		if ($result == "Вы успешно авторизовались как администратор") {
+			$this->view->generate_success('login_success_view.php', $result);
+		} else {
+			$this->view->generate('login_view.php', 'template_view.php', $result);
+		}
 	}
 
 	function action_logout() {
@@ -25,7 +28,8 @@ class Controller_Login extends Controller
 	}
 
 	function action_session_check() {
-		$this->model->session_check();
+		$result = $this->model->session_check();
+		echo $result;
 	}
 	
 }
